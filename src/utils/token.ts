@@ -1,0 +1,1 @@
+import jwt from "jsonwebtoken";export function signToken(u:{_id:unknown;email:string}){const secret=process.env.JWT_SECRET;if(!secret||secret.length<32)throw new Error("JWT_SECRET must be at least 32 characters");return jwt.sign({email:u.email},secret,{subject:String(u._id),expiresIn:"7d"});}
