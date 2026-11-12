@@ -1,21 +1,21 @@
 # Real-Time Collaboration Platform
 
-A TypeScript MERN collaboration app foundation for private and group messaging, team channels, presence, notifications, and file sharing.
+A TypeScript MERN collaboration workspace with persistent direct/group/channel messaging, Socket.IO live updates, online presence, typing indicators and notifications.
 
 ## Stack
-- React + TypeScript client (planned)
-- Node.js + Express + TypeScript
-- MongoDB + Mongoose
-- Socket.IO real-time gateway (planned)
-- JWT authentication and Zod validation
+React + Vite + TypeScript, Express + TypeScript, MongoDB/Mongoose, Socket.IO, JWT and Zod.
 
-## Getting started
-1. Install Node.js 20+ and MongoDB.
-2. Copy `.env.example` to `.env`.
-3. Run `npm install`, then `npm run dev`.
+## Setup
+Requirements: Node.js 20+ and MongoDB 7+. Copy `.env.example` to `.env`, set a random JWT secret (32+ characters), then run `npm install`, `npm run dev`. Open http://localhost:5175; API runs on port 4002.
 
-## Current implementation
-Initial API foundation with health endpoint and centralized error handling. Authenticated conversations, message persistence, Socket.IO rooms, presence, and React UI are planned for follow-up commits.
+## Workflow
+Register at least two accounts. Create a conversation or channel and add the other user's email. Open the same conversation in both browser sessions to test real-time messages, presence and typing. Message history is persisted in MongoDB.
 
-## Design considerations
-Persist messages before broadcasting; authorize room membership on every socket join; validate payloads; rate-limit message creation; never trust client-provided sender IDs.
+## API
+POST /api/auth/register, POST /api/auth/login, GET /api/auth/me
+GET/POST /api/conversations, GET /api/conversations/:id/messages, POST /api/conversations/:id/messages
+GET /api/notifications, PATCH /api/notifications/:id/read
+
+Socket.IO events: conversation:join, message:send, message:new, typing:start, typing:stop, presence:update, conversation:error. Socket access is verified using JWT and conversation membership.
+
+Portfolio project. Before production use add rate limits, moderation/reporting, file storage scanning, message retention policies, observability, backup strategy and security review.
