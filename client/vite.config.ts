@@ -1,0 +1,1 @@
+import {defineConfig} from "vite";export default defineConfig({root:"client",server:{port:5175},build:{outDir:"../client-dist",emptyOutDir:true}});
